@@ -1,0 +1,1 @@
+./docker-resource.dhall "opi"
