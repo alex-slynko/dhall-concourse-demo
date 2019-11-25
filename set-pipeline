@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ "${1:-x}" == "help" ]; then
+  cat <<EOF
+  Usage:
+
+        $ ./set-pipeline <CONCOURSE_TARGET>
+EOF
+  exit 0
+fi
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+target="${1:-eirini}"
+pipeline_yml=$(mktemp)
+dhall-fly <<< "$script_dir/pipeline.dhall" > $pipeline_yml
+
+fly -t "${target}" \
+  set-pipeline \
+  -p super-demo \
+  -c "$pipeline_yml"
