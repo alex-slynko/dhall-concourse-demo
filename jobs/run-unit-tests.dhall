@@ -12,7 +12,7 @@ let runUnitTestsJob =
         let runUnitTestsTask = ../tasks/unit-tests.dhall repo
         
         in    Concourse.defaults.Job
-            ⫽ { name = "run-tests"
+            ⫽ { name = "run-tests-${repo.name}"
               , public = Some True
               , plan = [ triggerOnRepoChange, runUnitTestsTask ]
               }
