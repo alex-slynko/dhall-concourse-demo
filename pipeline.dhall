@@ -22,4 +22,5 @@ let createDockerImageJob =
         dockerOpi
         runEiriniUnitTestJob.name
 
-in  [ runEiriniUnitTestJob, runEiriniStagingTestJob, createDockerImageJob ]
+let jobs =  [ runEiriniUnitTestJob, runEiriniStagingTestJob, createDockerImageJob ]
+in ./helpers/slack_on_fail.dhall jobs
